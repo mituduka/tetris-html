@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Modal</title>
+    <link rel="stylesheet" href="tetris.css">
+    <style>
+        body {
+            background: #f0f0f0;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Modal Styles */
+        #tetris-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #202028;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #fff;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        /* Host Page Button */
+        #open-modal-btn {
+            background: #007bff;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #open-modal-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Web Page Hosting Tetris</h1>
+    <p>Click the button below to play Tetris.</p>
+    <button id="open-modal-btn" onclick="openModal()">Start Game</button>
+
+    <!-- Modal Structure -->
+    <div id="tetris-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+
+            <div id="game-container">
+                <div class="panel">
+                    <div class="stat-box">
+                        <div class="stat-label">HOLD</div>
+                        <canvas id="hold" width="80" height="80"></canvas>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">SCORE</div>
+                        <div id="score" class="stat-value">0</div>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-label">LINES</div>
+                        <div id="lines" class="stat-value">0</div>
+                    </div>
+                </div>
+
+                <canvas id="tetris" width="220" height="440"></canvas>
+
+                <div class="panel">
+                    <div class="stat-box">
+                        <div class="stat-label">NEXT</div>
+                        <canvas id="next" width="80" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="controls-ui" style="margin-top: 20px; text-align: center;">
+                <button id="pause-btn" onclick="togglePause()" class="btn">Pause</button>
+                <button onclick="resetGame()" class="btn">Retry</button>
+            </div>
+
+            <div id="controls">
+                Moving: ← → | Soft Drop: ↓ | Hard Drop: Space<br>
+                Rotate Left: X | Rotate Right: C | Hold: Z<br>
+                Pause: Esc / P | Retry: R
+            </div>
+        </div>
+    </div>
+
+    <!-- Tetris Logic -->
+    <script src="tetris.js"></script>
+
+    <script>
+        // --- Modal Logic ---
+        let isModalOpen = false;
+
+        function openModal() {
+            document.getElementById('tetris-modal').style.display = 'flex';
+            isModalOpen = true;
+
+            // 初回起動時やポーズ状態からの復帰
+            if (isPaused) {
+                togglePause();
+            } else if (!lastTime) {
+                requestAnimationFrame(update);
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('tetris-modal').style.display = 'none';
+            isModalOpen = false;
+
+            // モーダルを閉じたら自動でポーズ
+            if (!isPaused) {
+                togglePause();
+            }
+        }
+    </script>
+</body>
+
+</html>
