@@ -438,7 +438,7 @@
             let nextRotation = (player.rotationState + dir) % 4;
             if (nextRotation < 0) nextRotation += 4;
 
-            // Wall Kick (スーパーローテーション)
+            // 壁キック (SRS)
             const kickTableKey = (player.type === 'I') ? 'I' : 'JLSTZ';
 
             // Oミノは回転不要
@@ -497,7 +497,7 @@
             const type = nextPiece();
             player.matrix = createPiece(type);
             player.type = type;
-            player.pos.y = -1; // 20-21段目あたりに出現
+            player.pos.y = -1; // 20-21段目に出現
             player.pos.x = 3;  // 左から4列目基準
             player.rotationState = 0;
             player.canHold = true;
@@ -520,7 +520,7 @@
 
         // 固定処理
         function lockPiece() {
-            // Lock Out 判定 (画面外での固定はゲームオーバー)
+            // ロックアウト判定 (画面外での固定はゲームオーバー)
             let lockout = false;
             player.matrix.forEach((row, y) => {
                 row.forEach((value, x) => {
