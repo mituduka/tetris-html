@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tetris Modal</title>
-    <link rel="stylesheet" href="tetris.css">
+    <title>Puzzle Modal</title>
+    <link rel="stylesheet" href="puzzle.css">
     <style>
         body {
             background: #f0f0f0;
@@ -20,7 +20,7 @@
         }
 
         /* Modal Styles */
-        #tetris-modal {
+        #puzzle-modal {
             display: none;
             position: fixed;
             z-index: 1000;
@@ -84,8 +84,8 @@
 
 <body>
 
-    <h1>Web Page Hosting Tetris</h1>
-    <p>Click the button below to play Tetris.</p>
+    <h1>Web Page Hosting Puzzle</h1>
+    <p>Click the button below to play Puzzle.</p>
     <button id="open-modal-btn" onclick="openModal()">Start Game</button>
 
     <!-- Modal Structure -->
@@ -110,7 +110,7 @@
                     </div>
                 </div>
 
-                <canvas id="tetris" width="220" height="440"></canvas>
+                <canvas id="puzzle" width="220" height="440"></canvas>
 
                 <div class="panel">
                     <div class="stat-box">
@@ -133,15 +133,15 @@
         </div>
     </div>
 
-    <!-- Tetris Logic -->
-    <script src="tetris.js"></script>
+    <!-- Puzzle Logic -->
+    <script src="puzzle.js"></script>
 
     <script>
         // --- Modal Logic ---
         let isModalOpen = false;
 
         function openModal() {
-            document.getElementById('tetris-modal').style.display = 'flex';
+            document.getElementById('puzzle-modal').style.display = 'flex';
             isModalOpen = true;
 
             // 初回起動時やポーズ状態からの復帰
@@ -153,7 +153,7 @@
         }
 
         function closeModal() {
-            document.getElementById('tetris-modal').style.display = 'none';
+            document.getElementById('puzzle-modal').style.display = 'none';
             isModalOpen = false;
 
             // モーダルを閉じたら自動でポーズ

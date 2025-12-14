@@ -1,6 +1,6 @@
-// --- Tetris Game Logic ---
+// --- Puzzle Game Logic ---
 
-const canvas = document.getElementById('tetris');
+const canvas = document.getElementById('puzzle');
 const context = canvas.getContext('2d');
 const nextCanvas = document.getElementById('next');
 const nextContext = nextCanvas.getContext('2d');
@@ -522,7 +522,7 @@ function update(time = 0) {
 }
 
 document.addEventListener('keydown', event => {
-    // モーダル変数がある場合のみチェック、なければ常時有効（index.html用だが今回はmodal_tetris用として作成）
+    // モーダル変数がある場合のみチェック、なければ常時有効（index.html用だが今回はmodal_puzzle用として作成）
     if (typeof isModalOpen !== 'undefined' && !isModalOpen) return;
 
     if (event.repeat) return;
